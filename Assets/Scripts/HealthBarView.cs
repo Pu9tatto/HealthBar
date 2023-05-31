@@ -12,9 +12,14 @@ public class HealthBarView : MonoBehaviour
     float _normalizedValue;
     private IEnumerator _currentCoroutine;
 
-    private void Awake()
+    private void OnEnable()
     {
         _player.EventHealthChanging += OnHealthChange;
+    }
+
+    private void OnDisable()
+    {
+        _player.EventHealthChanging -= OnHealthChange;
     }
 
     private void OnHealthChange(float newValue)
@@ -43,10 +48,5 @@ public class HealthBarView : MonoBehaviour
         _runningTime = 0;
         _currentCoroutine = coroutine;
         StartCoroutine(coroutine);
-    }
-
-    private void OnDisable()
-    {
-        _player.EventHealthChanging -= OnHealthChange;
     }
 }

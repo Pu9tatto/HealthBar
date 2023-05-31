@@ -18,7 +18,7 @@ public class Player : MonoBehaviour
         if( _health < _minHealth)
             _health = _minHealth;
 
-        EventHealthChanging(PercentHealth);
+        EventHealthChanging?.Invoke(PercentHealth);
     }
 
     public void Heal(int value)
@@ -28,7 +28,6 @@ public class Player : MonoBehaviour
         if (_health > _maxHealth)
             _health = _maxHealth;
 
-        EventHealthChanging(PercentHealth);
+        EventHealthChanging?.Invoke(PercentHealth);
     }
-
 }
