@@ -6,12 +6,18 @@ public class HealthBarView : MonoBehaviour
 {
     [SerializeField] private Slider _healthBar;
     [SerializeField] private float _durationChange;
+    [SerializeField] private Player _player;
 
     float _runningTime = 0;
     float _normalizedValue;
     private IEnumerator _currentCoroutine;
 
-    public void Render(float newValue)
+    private void Awake()
+    {
+        _player.EventHealthChanging += OnHealthChange;
+    }
+
+    private void OnHealthChange(float newValue)
     {
         StartNewCoroutine(ChangeValue(newValue));
     }
@@ -37,5 +43,10 @@ public class HealthBarView : MonoBehaviour
         _runningTime = 0;
         _currentCoroutine = coroutine;
         StartCoroutine(coroutine);
+    }
+
+    private void OnDisable()
+    {
+        _player.EventHealthChanging -= OnHealthChange;
     }
 }
